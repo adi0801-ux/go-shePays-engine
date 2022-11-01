@@ -1,0 +1,2 @@
+{"client_ip":"127.0.0.1","latency_time(ms)":300800,"level":"info","msg":"","req_method":"POST","req_uri":"/api/account/fund/initiate","status_code":200,"time":"2022-10-27 13:19:02"}
+{"client_ip":"127.0.0.1","latency_time(ms)":326941,"level":"info","msg":"","req_method":"POST","req_uri":"/api/account/fund/initiate","status_code":200,"time":"2022-10-27 13:35:36"}
