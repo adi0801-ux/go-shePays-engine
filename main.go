@@ -1,11 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"shepays/api"
-	"shepays/cron"
 	"shepays/db"
+	"shepays/models"
 	"shepays/repositories"
 	"shepays/services"
 	"shepays/utils"
@@ -46,21 +45,22 @@ func main() {
 
 	utils.Log.Info("database connected")
 
-	happyRep := repositories.HappyClient{Client: repositories.CreateHttpClient(),
-		LogRep:  &repositories.ApiLogsRepository{Db: store},
-		AppId:   config.AppId,
-		BaseUrl: config.HappyUrl}
+	nsdlRep := repositories.NSDLClient{Client: repositories.CreateHttpClient(),
+		LogRep:    &repositories.ApiLogsRepository{Db: store},
+		BaseUrl:   config.NSDLUrl,
+		ChannelId: config.ChannelId,
+		AppDtls: &models.AppDtls{
+			Appid:       config.AppId,
+			ApplVersion: config.ApplVersion,
+			AppRegFlg:   config.AppRegFlg,
+		},
+	}
 
 	//create service reference
 	proxySrv := services.CreateAllRepositoryReferences(store)
-	proxySrv.HappayClient = &happyRep
+	proxySrv.NSDLClient = &nsdlRep
 
 	//create cron Reference
-	fmt.Println(utils.GenerateID())
-
-	cronRef := cron.Cron{HappayClient: &happyRep, Sc: cron.CreateScheduler(), Conf: config}
-	// run cron jobs
-	cronRef.InitializeScheduler()
 
 	//creating a config
 

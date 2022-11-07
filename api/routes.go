@@ -22,46 +22,32 @@ func (s *HTTPServer) RegisterRoutes(router *fiber.App) {
 
 	api := router.Group("/api")
 
-	savingsAccount := api.Group("/account")
+	device := api.Group("/device")
 	{
-		savingsAccount.Post("/", s.createSavingsAccountController)
-		savingsAccount.Get("/fund/transfer/status", s.checkPaymentStatusController)
-		savingsAccount.Post("/fund/initiate", s.initiateNeftTransferController)
-		savingsAccount.Post("/fund/transfer", s.validateNeftTransferController)
+		device.Post("/version/check", s.checkDeviceController)
+		device.Post("/register", s.registerDeviceController)
+		device.Post("/customer/information", s.registerCustomerDeviceController)
+	}
+	sms := api.Group("/sms")
+	{
+		sms.Post("/request/gen", s.smsGenRequestController)
+	}
+	mPIN := api.Group("/mPIN")
+	{
+		mPIN.Post("/set", s.setMPINController)
 	}
 
-	cardApis := api.Group("/card")
+	customer := api.Group("/customer")
 	{
-		cardApis.Post("/physical", s.createPhysicalCardController)
-		cardApis.Post("/virtual", s.createVirtualCardController)
-		cardApis.Put("/assign", s.assignCardController)
-		cardApis.Put("/activate", s.activateCardController)
-		cardApis.Get("/details", s.getCardDetailsController)
-		cardApis.Put("/block", s.blockCardController)
-		cardApis.Put("/unblock", s.unblockCardController)
-		cardApis.Post("/pin/init", s.initiateCardPinSetController)
-		//cardApis.Post("/pin/set", s.setCardPinController)
-		cardApis.Post("/replace", s.replaceCardController)
+		customer.Post("/additional/information", s.customerAdditionalInfomationController)
 
-	}
-	ckyc := api.Group("/ckyc")
-	{
-		ckyc.Post("/check", s.checkCkycController)
-	}
-	users := api.Group("/users")
-	{
-		users.Get("/", s.readUserController)
-		users.Post("/", s.createUserController)
-		users.Put("/", s.updateUserController)
-		users.Post("/nominees", s.createUserNomineesController)
-		users.Get("/nominees", s.readUserNomineesController)
-
-	}
-	address := api.Group("/address")
-	{
-		address.Post("/", s.createUserAddressController)
-		address.Get("/", s.readUserAddressController)
-		address.Put("/", s.updateUserAddressController)
+		kyc := customer.Group("/kyc")
+		{
+			kyc.Post("/pan", s.PANVerifyController)
+			kyc.Post("/aadhar", s.AadhaarVerifyController)
+			kyc.Post("/selfie", s.UploadSelfieController)
+			kyc.Post("/dob", s.ValidateDOBController)
+		}
 	}
 
 }

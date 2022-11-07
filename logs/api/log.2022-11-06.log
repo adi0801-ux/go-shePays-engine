@@ -1,0 +1,10 @@
+{"client_ip":"127.0.0.1","latency_time(ms)":4385973,"level":"info","msg":"","req_method":"POST","req_uri":"/api/customer/kyc/selfie","status_code":200,"time":"2022-11-06 14:42:01"}
+{"client_ip":"127.0.0.1","latency_time(ms)":2862688,"level":"info","msg":"","req_method":"POST","req_uri":"/api/customer/kyc/aadhar","status_code":200,"time":"2022-11-06 14:44:48"}
+{"client_ip":"127.0.0.1","latency_time(ms)":313607,"level":"info","msg":"","req_method":"POST","req_uri":"/api/customer/kyc/aadhar","status_code":400,"time":"2022-11-06 15:07:27"}
+{"client_ip":"127.0.0.1","latency_time(ms)":3659565,"level":"info","msg":"","req_method":"POST","req_uri":"/api/customer/kyc/aadhar","status_code":200,"time":"2022-11-06 15:10:17"}
+{"client_ip":"127.0.0.1","latency_time(ms)":423295,"level":"info","msg":"","req_method":"POST","req_uri":"/api/customer/kyc/dob","status_code":200,"time":"2022-11-06 15:12:27"}
+{"client_ip":"127.0.0.1","latency_time(ms)":154590,"level":"info","msg":"","req_method":"POST","req_uri":"/api/customer/kyc/dob","status_code":200,"time":"2022-11-06 15:13:26"}
+{"client_ip":"127.0.0.1","latency_time(ms)":263827,"level":"info","msg":"","req_method":"POST","req_uri":"/api/customer/kyc/dob","status_code":200,"time":"2022-11-06 15:17:41"}
+{"client_ip":"127.0.0.1","latency_time(ms)":288687,"level":"info","msg":"","req_method":"POST","req_uri":"/api/customer/kyc/dob","status_code":200,"time":"2022-11-06 15:18:16"}
+{"client_ip":"127.0.0.1","latency_time(ms)":277258,"level":"info","msg":"","req_method":"POST","req_uri":"/api/customer/kyc/dob","status_code":200,"time":"2022-11-06 15:22:41"}
+{"client_ip":"127.0.0.1","latency_time(ms)":263988,"level":"info","msg":"","req_method":"POST","req_uri":"/api/customer/kyc/dob","status_code":200,"time":"2022-11-06 15:22:49"}

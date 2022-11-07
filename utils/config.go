@@ -9,10 +9,11 @@ type Config struct {
 	DSN           string `mapstructure:"DSN"`
 	GINMode       string `mapstructure:"GIN_MODE"`
 	ServerAddress string `mapstructure:"SERVER_ADDRESS"`
+	NSDLUrl       string `mapstructure:"NSDL_URL"`
+	ChannelId     string `mapstructure:"CHANNEL_ID"`
 	AppId         string `mapstructure:"APP_ID"`
-	AppKey        string `mapstructure:"APP_KEY"`
-	AppSecret     string `mapstructure:"APP_SECRET"`
-	HappyUrl      string `mapstructure:"HAPPY_URL"`
+	ApplVersion   string `mapstructure:"APP_VERSION"`
+	AppRegFlg     string `mapstructure:"APP_REG_FLAG"`
 }
 
 func LoadConfig(path string) (config *Config, err error) {

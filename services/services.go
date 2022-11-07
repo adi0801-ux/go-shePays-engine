@@ -6,24 +6,18 @@ import (
 )
 
 type ServiceConfig struct {
-	CardRep        *repositories.CardDetailsRepository
-	AccountRep     *repositories.SavingsAccountRepository
-	HappayClient   *repositories.HappyClient
-	CkycRep        *repositories.UserCkycRepository
-	UserRep        *repositories.UserDetailsRepository
-	UserAddressRep *repositories.UserAddressRepository
-	UserNomineeRep *repositories.UserNomineesRepository
+	NSDLClient          *repositories.NSDLClient
+	DeviceDetailsRepo   *repositories.DeviceDetailsRepository
+	CustomerDetailsRepo *repositories.CustomerDetailsRepository
+	UserKycRepo         *repositories.KycUserDocRepository
 }
 
 func CreateAllRepositoryReferences(store *db.Database) ServiceConfig {
 	//create repository references
 	ref := ServiceConfig{
-		CardRep:        &repositories.CardDetailsRepository{Db: store},
-		AccountRep:     &repositories.SavingsAccountRepository{Db: store},
-		CkycRep:        &repositories.UserCkycRepository{Db: store},
-		UserRep:        &repositories.UserDetailsRepository{Db: store},
-		UserAddressRep: &repositories.UserAddressRepository{Db: store},
-		UserNomineeRep: &repositories.UserNomineesRepository{Db: store},
+		DeviceDetailsRepo:   &repositories.DeviceDetailsRepository{Db: store},
+		CustomerDetailsRepo: &repositories.CustomerDetailsRepository{Db: store},
+		UserKycRepo:         &repositories.KycUserDocRepository{Db: store},
 	}
 
 	return ref

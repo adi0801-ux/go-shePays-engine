@@ -1,0 +1,8 @@
+{"client_ip":"127.0.0.1","latency_time(ms)":7412,"level":"info","msg":"","req_method":"POST","req_uri":"/api/device/version/check","status_code":400,"time":"2022-11-02 18:38:18"}
+{"client_ip":"127.0.0.1","latency_time(ms)":884,"level":"info","msg":"","req_method":"POST","req_uri":"/api/device/version/check","status_code":400,"time":"2022-11-02 18:38:56"}
+{"client_ip":"127.0.0.1","latency_time(ms)":474483,"level":"info","msg":"","req_method":"POST","req_uri":"/api/device/version/check","status_code":200,"time":"2022-11-02 18:39:06"}
+{"client_ip":"127.0.0.1","latency_time(ms)":21,"level":"info","msg":"","req_method":"POST","req_uri":"/api/device/register","status_code":200,"time":"2022-11-02 19:16:40"}
+{"client_ip":"127.0.0.1","latency_time(ms)":404157,"level":"info","msg":"","req_method":"POST","req_uri":"/api/device/register","status_code":200,"time":"2022-11-02 19:17:01"}
+{"client_ip":"127.0.0.1","latency_time(ms)":257952,"level":"info","msg":"","req_method":"POST","req_uri":"/api/device/register","status_code":200,"time":"2022-11-02 19:17:32"}
+{"client_ip":"127.0.0.1","latency_time(ms)":248747,"level":"info","msg":"","req_method":"POST","req_uri":"/api/device/register","status_code":200,"time":"2022-11-02 19:17:53"}
+{"client_ip":"127.0.0.1","latency_time(ms)":665372,"level":"info","msg":"","req_method":"POST","req_uri":"/api/device/version/check","status_code":200,"time":"2022-11-02 19:44:03"}

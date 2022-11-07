@@ -1,10 +1,8 @@
 package cron
 
 import (
-	"encoding/json"
 	"fmt"
 	"github.com/go-co-op/gocron"
-	"shepays/models"
 	"shepays/repositories"
 	"shepays/utils"
 	"time"
@@ -13,7 +11,7 @@ import (
 type Cron struct {
 	Sc           *gocron.Scheduler
 	Conf         *utils.Config
-	HappayClient *repositories.HappyClient
+	HappayClient *repositories.NSDLClient
 }
 
 func CreateScheduler() *gocron.Scheduler {
@@ -55,15 +53,5 @@ func (cron *Cron) AuthApiJobs() {
 func (cron *Cron) CallAuthApi() {
 	//	 fetch all active SIP's where date is current date
 	//	deduct wallet balance --> call service
-
-	response, err := cron.HappayClient.CallAuthHappy(cron.Conf.AppKey, cron.Conf.AppSecret)
-	if err != nil {
-		utils.Log.Error(err)
-		return
-	}
-
-	var data models.AuthResponse
-	err = json.NewDecoder(response.Body).Decode(&data)
-	cron.HappayClient.AppToken = &data.ResData.AppToken
 
 }

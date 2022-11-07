@@ -1,0 +1,236 @@
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 15:11:03"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 15:11:03"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 15:11:03"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 15:11:03"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 15:11:03"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 15:11:03"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 15:11:45"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 15:11:45"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 15:11:45"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 15:11:45"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 15:11:45"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 15:11:45"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 15:13:47"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 15:13:47"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 15:13:47"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 15:13:47"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 15:13:47"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 15:13:47"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 15:39:26"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 15:39:26"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 15:39:26"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 15:39:26"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 15:39:26"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 15:39:26"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 15:41:15"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 15:41:15"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 15:41:15"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 15:41:15"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 15:41:15"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 15:41:15"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 15:42:18"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 15:42:18"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 15:42:18"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 15:42:18"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 15:42:18"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 15:42:18"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 15:44:21"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 15:44:21"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 15:44:21"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 15:44:21"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 15:44:21"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 15:44:21"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 15:44:43"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 15:44:43"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 15:44:43"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 15:44:43"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 15:44:43"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 15:44:43"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 15:45:08"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 15:45:08"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 15:45:08"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 15:45:08"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 15:45:08"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 15:45:08"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 16:02:06"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 16:02:06"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 16:02:06"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 16:02:06"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 16:02:06"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 16:02:06"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 16:03:08"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 16:03:08"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 16:03:08"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 16:03:08"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 16:03:08"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 16:03:08"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 16:03:23"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 16:03:23"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 16:03:23"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 16:03:23"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 16:03:23"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 16:03:23"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 16:06:29"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 16:06:29"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 16:06:29"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 16:06:29"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 16:06:29"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 16:06:29"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 16:06:55"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 16:06:55"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 16:06:55"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 16:06:55"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 16:06:55"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 16:06:55"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 16:08:20"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 16:08:20"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 16:08:20"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 16:08:20"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 16:08:20"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 16:08:20"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 16:44:43"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 16:44:43"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 16:44:43"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 16:44:43"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 16:44:43"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 16:44:43"}
+{"caller":"/repositories/nsdlClient.go:108","level":"error","msg":"ERROR: invalid byte sequence for encoding \"UTF8\": 0x00 (SQLSTATE 22021)","time":"2022-11-04 16:44:50"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 17:08:49"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 17:08:49"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 17:08:49"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 17:08:49"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 17:08:49"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 17:08:49"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 17:16:31"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 17:16:31"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 17:16:31"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 17:16:31"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 17:16:31"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 17:16:31"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 17:20:06"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 17:20:06"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 17:20:06"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 17:20:06"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 17:20:06"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 17:20:06"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 17:23:45"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 17:23:45"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 17:23:45"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 17:23:45"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 17:23:45"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 17:23:45"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 17:25:00"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 17:25:00"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 17:25:00"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 17:25:00"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 17:25:01"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 17:25:01"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 17:27:43"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 17:27:43"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 17:27:43"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 17:27:43"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 17:27:43"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 17:27:43"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 17:28:38"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 17:28:38"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 17:28:38"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 17:28:38"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 17:28:38"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 17:28:38"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 17:32:01"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 17:32:01"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 17:32:01"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 17:32:01"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 17:32:01"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 17:32:01"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 17:33:37"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 17:33:37"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 17:33:37"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 17:33:37"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 17:33:38"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 17:33:38"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 17:36:27"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 17:36:27"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 17:36:27"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 17:36:27"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 17:36:27"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 17:36:27"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 17:44:05"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 17:44:05"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 17:44:05"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 17:44:05"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 17:44:05"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 17:44:05"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 17:44:59"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 17:44:59"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 17:44:59"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 17:44:59"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 17:44:59"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 17:44:59"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 18:02:14"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 18:02:14"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 18:02:14"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 18:02:14"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 18:02:15"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 18:02:15"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 18:03:07"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 18:03:07"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 18:03:07"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 18:03:07"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 18:03:08"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 18:03:08"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 18:04:04"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 18:04:04"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 18:04:04"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 18:04:04"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 18:04:04"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 18:04:04"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 18:04:52"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 18:04:52"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 18:04:52"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 18:04:52"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 18:04:52"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 18:04:52"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 18:08:13"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 18:08:13"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 18:08:13"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 18:08:13"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 18:08:13"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 18:08:13"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 18:09:06"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 18:09:06"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 18:09:06"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 18:09:06"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 18:09:06"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 18:09:06"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 18:10:56"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 18:10:56"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 18:10:56"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 18:10:56"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 18:10:56"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 18:10:56"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 19:18:05"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 19:18:05"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 19:18:05"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 19:18:05"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 19:18:05"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 19:18:05"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 19:21:45"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 19:21:45"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 19:21:45"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 19:21:45"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 19:21:45"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 19:21:45"}
+{"caller":"/repositories/nsdlClient.go:123","level":"error","msg":"ERROR: invalid byte sequence for encoding \"UTF8\": 0x00 (SQLSTATE 22021)","time":"2022-11-04 19:21:45"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 19:23:28"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 19:23:28"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 19:23:28"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 19:23:28"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 19:23:28"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 19:23:28"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-04 19:24:50"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-04 19:24:50"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-04 19:24:50"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-04 19:24:50"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-04 19:24:50"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-04 19:24:50"}

@@ -1,7 +1,0 @@
-{"caller":"/main.go:19","level":"info","msg":"logger initialized","time":"2022-10-27 13:18:43"}
-{"caller":"/main.go:23","level":"info","msg":"config loading...","time":"2022-10-27 13:18:43"}
-{"caller":"/main.go:30","level":"info","msg":"config loaded","time":"2022-10-27 13:18:43"}
-{"caller":"/main.go:32","level":"info","msg":"database connecting....","time":"2022-10-27 13:18:43"}
-{"caller":"/main.go:47","level":"info","msg":"database connected","time":"2022-10-27 13:18:44"}
-{"caller":"/cron/scheduler.go:37","level":"info","msg":"initializing crons","time":"2022-10-27 13:18:44"}
-{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-10-27 13:18:44"}

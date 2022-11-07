@@ -21,10 +21,10 @@ type Database struct {
 }
 
 func (d *Database) RunMigrations() (err error) {
-	err = d.store.AutoMigrate(&models.SavingsAccount{}, &models.UserDetail{},
-		&models.UserAddress{}, &models.UserCard{}, &models.UserCkyc{},
-		&models.UserNominee{}, &models.CreatePhysicalCardApiResponse{},
-		&models.CreateVirtualCardApiResponse{}, &models.APILog{})
+	err = d.store.AutoMigrate(&models.APILog{},
+		&models.DeviceDetails{},
+		&models.CustomerDetails{},
+		&models.CustomerAdditionalInformation{})
 	return err
 }
 

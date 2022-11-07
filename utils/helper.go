@@ -23,6 +23,10 @@ func GenerateLogID() string {
 
 }
 
+func GenerateDeviceId() string {
+	return "shepays000" + ksuid.New().String()
+}
+
 func Base64Decode(str string) []byte {
 	data, err := base64.StdEncoding.DecodeString(str)
 	if err != nil {
