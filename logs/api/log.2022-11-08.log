@@ -1,0 +1,12 @@
+{"client_ip":"127.0.0.1","latency_time(ms)":467900,"level":"info","msg":"","req_method":"POST","req_uri":"/api/device/register","status_code":200,"time":"2022-11-08 13:50:39"}
+{"client_ip":"127.0.0.1","latency_time(ms)":160546,"level":"info","msg":"","req_method":"POST","req_uri":"/api/device/customer/information","status_code":200,"time":"2022-11-08 13:51:16"}
+{"client_ip":"127.0.0.1","latency_time(ms)":91272,"level":"info","msg":"","req_method":"POST","req_uri":"/api/device/version/check","status_code":200,"time":"2022-11-08 13:51:25"}
+{"client_ip":"127.0.0.1","latency_time(ms)":442440,"level":"info","msg":"","req_method":"POST","req_uri":"/api/sms/request/gen","status_code":200,"time":"2022-11-08 13:52:01"}
+{"client_ip":"127.0.0.1","latency_time(ms)":366430,"level":"info","msg":"","req_method":"POST","req_uri":"/api/customer/additional/information","status_code":200,"time":"2022-11-08 13:52:56"}
+{"client_ip":"127.0.0.1","latency_time(ms)":133988,"level":"info","msg":"","req_method":"POST","req_uri":"/api/mPIN/set","status_code":400,"time":"2022-11-08 13:53:06"}
+{"client_ip":"127.0.0.1","latency_time(ms)":582970,"level":"info","msg":"","req_method":"POST","req_uri":"/api/customer/kyc/pan","status_code":200,"time":"2022-11-08 13:53:14"}
+{"client_ip":"127.0.0.1","latency_time(ms)":3168042,"level":"info","msg":"","req_method":"POST","req_uri":"/api/customer/kyc/aadhar","status_code":200,"time":"2022-11-08 13:53:28"}
+{"client_ip":"127.0.0.1","latency_time(ms)":5290975,"level":"info","msg":"","req_method":"POST","req_uri":"/api/customer/kyc/selfie","status_code":200,"time":"2022-11-08 13:53:43"}
+{"client_ip":"127.0.0.1","latency_time(ms)":741400,"level":"info","msg":"","req_method":"POST","req_uri":"/api/customer/kyc/selfie","status_code":400,"time":"2022-11-08 13:54:08"}
+{"client_ip":"127.0.0.1","latency_time(ms)":270426,"level":"info","msg":"","req_method":"POST","req_uri":"/api/customer/kyc/dob","status_code":200,"time":"2022-11-08 13:55:00"}
+{"client_ip":"127.0.0.1","latency_time(ms)":1076772,"level":"info","msg":"","req_method":"POST","req_uri":"/api/aof/create","status_code":200,"time":"2022-11-08 13:55:29"}

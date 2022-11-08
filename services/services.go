@@ -10,6 +10,7 @@ type ServiceConfig struct {
 	DeviceDetailsRepo   *repositories.DeviceDetailsRepository
 	CustomerDetailsRepo *repositories.CustomerDetailsRepository
 	UserKycRepo         *repositories.KycUserDocRepository
+	IntermValuesRepo    *repositories.UserIntermidiateValuesRepository
 }
 
 func CreateAllRepositoryReferences(store *db.Database) ServiceConfig {
@@ -18,6 +19,7 @@ func CreateAllRepositoryReferences(store *db.Database) ServiceConfig {
 		DeviceDetailsRepo:   &repositories.DeviceDetailsRepository{Db: store},
 		CustomerDetailsRepo: &repositories.CustomerDetailsRepository{Db: store},
 		UserKycRepo:         &repositories.KycUserDocRepository{Db: store},
+		IntermValuesRepo:    &repositories.UserIntermidiateValuesRepository{Db: store},
 	}
 
 	return ref

@@ -48,6 +48,20 @@ func (s *HTTPServer) RegisterRoutes(router *fiber.App) {
 			kyc.Post("/selfie", s.UploadSelfieController)
 			kyc.Post("/dob", s.ValidateDOBController)
 		}
+
+		customer.Post("/otp/get", s.GetOTPController)
+		customer.Post("/otp/verify", s.SendOTPController)
+		customer.Post("/vcif/create", s.GetVcifController)
+	}
+
+	aof := api.Group("/aof")
+	{
+		aof.Post("/create", s.AOFCreationController)
+	}
+
+	account := api.Group("/account")
+	{
+		account.Post("/create_savings", s.CreateAccountController)
 	}
 
 }

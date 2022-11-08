@@ -24,7 +24,9 @@ func (d *Database) RunMigrations() (err error) {
 	err = d.store.AutoMigrate(&models.APILog{},
 		&models.DeviceDetails{},
 		&models.CustomerDetails{},
-		&models.CustomerAdditionalInformation{})
+		&models.CustomerAdditionalInformation{},
+		&models.KYCPAN{},
+		&models.UserIntermValues{})
 	return err
 }
 

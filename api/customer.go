@@ -107,3 +107,83 @@ func (s *HTTPServer) ValidateDOBController(c *fiber.Ctx) error {
 	SendResponse(c, statusCode, 1, constants.SuccessResponseMessage, data, err)
 	return nil
 }
+
+func (s *HTTPServer) AOFCreationController(c *fiber.Ctx) error {
+
+	var aof models.AoFModel
+
+	customErrors, err := ValidateRequest[models.AoFModel](s, c, &aof)
+	if err != nil {
+		SendFullErrorResponse(c, http.StatusBadRequest, fmt.Errorf(constants.RequestError), customErrors)
+		return nil
+	}
+
+	statusCode, data, err := s.proxySrv.AoFAPI(&aof)
+
+	SendResponse(c, statusCode, 1, constants.SuccessResponseMessage, data, err)
+	return nil
+}
+
+func (s *HTTPServer) GetOTPController(c *fiber.Ctx) error {
+
+	var user models.UserId
+
+	customErrors, err := ValidateRequest[models.UserId](s, c, &user)
+	if err != nil {
+		SendFullErrorResponse(c, http.StatusBadRequest, fmt.Errorf(constants.RequestError), customErrors)
+		return nil
+	}
+
+	statusCode, data, err := s.proxySrv.GetOTPProxy(&user)
+
+	SendResponse(c, statusCode, 1, constants.SuccessResponseMessage, data, err)
+	return nil
+}
+
+func (s *HTTPServer) SendOTPController(c *fiber.Ctx) error {
+
+	var otp models.OTPVerify
+
+	customErrors, err := ValidateRequest[models.OTPVerify](s, c, &otp)
+	if err != nil {
+		SendFullErrorResponse(c, http.StatusBadRequest, fmt.Errorf(constants.RequestError), customErrors)
+		return nil
+	}
+
+	statusCode, data, err := s.proxySrv.VerifyOTPProxy(&otp)
+
+	SendResponse(c, statusCode, 1, constants.SuccessResponseMessage, data, err)
+	return nil
+}
+
+func (s *HTTPServer) GetVcifController(c *fiber.Ctx) error {
+
+	var user models.UserId
+
+	customErrors, err := ValidateRequest[models.UserId](s, c, &user)
+	if err != nil {
+		SendFullErrorResponse(c, http.StatusBadRequest, fmt.Errorf(constants.RequestError), customErrors)
+		return nil
+	}
+
+	statusCode, data, err := s.proxySrv.VCifAPI(&user)
+
+	SendResponse(c, statusCode, 1, constants.SuccessResponseMessage, data, err)
+	return nil
+}
+
+func (s *HTTPServer) CreateAccountController(c *fiber.Ctx) error {
+
+	var user models.UserId
+
+	customErrors, err := ValidateRequest[models.UserId](s, c, &user)
+	if err != nil {
+		SendFullErrorResponse(c, http.StatusBadRequest, fmt.Errorf(constants.RequestError), customErrors)
+		return nil
+	}
+
+	statusCode, data, err := s.proxySrv.AccountCreateProxy(&user)
+
+	SendResponse(c, statusCode, 1, constants.SuccessResponseMessage, data, err)
+	return nil
+}

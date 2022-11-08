@@ -119,15 +119,3 @@ type CustomerRecordMobileNumberCheckResponse struct {
 		Username           interface{} `json:"username"`
 	} `json:"user_dtls"`
 }
-
-type CustomerAdditionalInformation struct {
-	PinCode    string    `gorm:"column:pin_code" json:"pin_code"`
-	DOB        string    `gorm:"column:dob" json:"dob"`
-	Salutation string    `gorm:"column:salutation" json:"salutation"`
-	Country    string    `gorm:"column:country" json:"country"`
-	State      string    `gorm:"column:state" json:"state"`
-	City       string    `gorm:"column:city" json:"city"`
-	UserId     string    `gorm:"column:user_id" json:"user_id"`
-	ID         int32     `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
-	CreatedAt  time.Time `gorm:"column:created_at;not null;default:now()" json:"created_at"`
-}

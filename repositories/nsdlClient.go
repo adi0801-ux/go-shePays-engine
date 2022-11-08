@@ -75,6 +75,48 @@ func (h *NSDLClient) SendPostRequest(endpoint string, body interface{}) (respons
 
 }
 
+func (h *NSDLClient) SendPostRequestWithoutResponseLog(endpoint string, body interface{}) (response *http.Response, errResp error) {
+
+	method := http.MethodPost
+	URL := h.BaseUrl + endpoint
+	jsonBody, err := json.Marshal(body)
+	if err != nil {
+		utils.Log.Error(err)
+		return nil, err
+	}
+	req, err := http.NewRequest(method, URL, bytes.NewBuffer(jsonBody))
+	if err != nil {
+		return nil, err
+	}
+
+	//save to db
+	apiLog := &models.APILog{
+		RequestId: utils.GenerateID(),
+		CreatedAt: time.Time{},
+		Params:    req.URL.RawQuery,
+		Payload:   string(jsonBody),
+		Method:    method,
+		Endpoint:  endpoint,
+	}
+	err = h.LogRep.CreateApiLog(apiLog)
+	if err != nil {
+		utils.Log.Error(err)
+		return nil, err
+	}
+
+	response, errResp = h.callNSDL(req, apiLog.RequestId)
+
+	apiLog.ResponseCode = response.StatusCode
+	apiLog.ResponseDate = time.Now().String()
+	err = h.LogRep.UpdateApiLog(apiLog)
+	if err != nil {
+		utils.Log.Error(err)
+		return response, err
+	}
+	return response, errResp
+
+}
+
 func (h *NSDLClient) callNSDL(req *http.Request, RequestId string) (*http.Response, error) {
 
 	req.Header.Add("Content-Type", "application/json")

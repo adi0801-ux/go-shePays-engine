@@ -29,4 +29,10 @@ const (
 	VerifySelfieEndpoint              = "/PBfacematchME"
 	ValidateDOBEndpoint               = "/PBverifyvalidDOBME"
 	ValidatePANEndpoint               = "/PBvalidatePANME"
+	AOFCreationEndpoint               = "/PBaofcreationME"
+	SMSGenrationEndpoint              = "/PBesigngenerateOTPME"
+	SMSVerifyEndpoint                 = "/PBesignverifyOTPME"
+	VCIFCreationEndpoint              = "/PBcreretailindvcifME"
+	AccountCreationEndpoint           = "/PBaccountcreationME"
+	CardCreationEndpoint              = "/PBgenerateCardME"
 )

@@ -268,10 +268,127 @@ func (p *ServiceConfig) SetMPINProxy(setMPIN *models.SetMPIN) (int, interface{},
 	if err != nil {
 		return http.StatusBadRequest, nil, err
 	}
+
 	if data.(map[string]interface{})["respcode"].(string) != constants.DefaultSuccessResponseCode {
 		return http.StatusBadRequest, nil, fmt.Errorf(data.(map[string]interface{})["response"].(string))
 	}
 
 	return response.StatusCode, data, nil
 
+}
+
+func (p *ServiceConfig) GetOTPProxy(user *models.UserId) (int, interface{}, error) {
+
+	//get device Id , uniqueId from db
+	details, err := p.DeviceDetailsRepo.ReadDeviceDetails(user.UserId)
+	if err != nil {
+		return http.StatusBadRequest, nil, err
+	}
+
+	userDetails, err := p.CustomerDetailsRepo.ReadCustomerDetails(user.UserId)
+
+	baseModel := models.SMSGenrationAPI{}
+
+	baseModel.Channelid = p.NSDLClient.ChannelId
+	baseModel.Appdtls = *p.NSDLClient.AppDtls
+	baseModel.Devicedtls.Deviceid = details.DeviceId
+	baseModel.Deviceidentifier = models.DeviceIdentifier{
+		DeviceId:    details.DeviceId,
+		DeviceUnqId: details.DeviceUniqueId,
+		CustUnqId:   details.CustomerUniqueId,
+	}
+
+	baseModel.Mobileno = userDetails.Msisdn
+	baseModel.Emailid = userDetails.EmailId
+	baseModel.Sentmode = "SMS"
+	baseModel.Type = "ESIGNOTP"
+	baseModel.Subtype = "OTPAUTHENTICATION"
+	baseModel.Attempt = "1"
+
+	baseModel.Token = constants.DefaultTokenValue
+
+	response, err := p.NSDLClient.SendPostRequest(constants.SMSGenrationEndpoint, &baseModel)
+	if err != nil {
+		return http.StatusBadRequest, nil, err
+	}
+
+	var data models.SMSGenrationAPIResponse
+
+	err = json.NewDecoder(response.Body).Decode(&data)
+	if err != nil {
+		return http.StatusBadRequest, nil, err
+	}
+
+	if data.Respcode != constants.DefaultSuccessResponseCode {
+		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
+	}
+
+	//	save id
+	values, _ := p.IntermValuesRepo.ReadUserIntermValues(user.UserId)
+	values.OtpRequiredId = data.OtpDtls.Otpreqid
+	values.UserID = user.UserId
+
+	err = p.IntermValuesRepo.CreateUserIntermValues(values)
+	if err != nil {
+		return http.StatusBadRequest, nil, err
+	}
+
+	return response.StatusCode, data, nil
+
+}
+
+func (p *ServiceConfig) VerifyOTPProxy(otp *models.OTPVerify) (int, interface{}, error) {
+
+	//get device Id , uniqueId from db
+	details, err := p.DeviceDetailsRepo.ReadDeviceDetails(otp.UserId)
+	if err != nil {
+		return http.StatusBadRequest, nil, err
+	}
+
+	userDetails, err := p.CustomerDetailsRepo.ReadCustomerDetails(otp.UserId)
+
+	values, _ := p.IntermValuesRepo.ReadUserIntermValues(otp.UserId)
+
+	baseModel := models.SMSVerifyAPI{}
+
+	baseModel.Channelid = p.NSDLClient.ChannelId
+	baseModel.Appdtls = *p.NSDLClient.AppDtls
+	baseModel.Devicedtls.Deviceid = details.DeviceId
+	baseModel.Deviceidentifier = models.DeviceIdentifier{
+		DeviceId:    details.DeviceId,
+		DeviceUnqId: details.DeviceUniqueId,
+		CustUnqId:   details.CustomerUniqueId,
+	}
+
+	baseModel.Type = "ESIGNOTP"
+	baseModel.Subtype = "OTPAUTHENTICATION"
+
+	baseModel.Verstatusdtl.Verunqid = values.OtpRequiredId
+	baseModel.Verstatusdtl.Smsactdtl.Smsto = userDetails.MobileCountryCode + userDetails.Msisdn
+	baseModel.Verstatusdtl.Smsactdtl.Smsval = ""
+	baseModel.Verstatusdtl.Smsactdtl.Smsactstatus = ""
+
+	baseModel.Verstatusdtl.Otpdtl.Otplength = string(len(otp.OTP))
+	baseModel.Verstatusdtl.Otpdtl.Otpval = otp.OTP
+	baseModel.Verstatusdtl.Otpdtl.Otpencval = ""
+
+	baseModel.Token = constants.DefaultTokenValue
+
+	response, err := p.NSDLClient.SendPostRequest(constants.SMSVerifyEndpoint, &baseModel)
+	if err != nil {
+		return http.StatusBadRequest, nil, err
+	}
+
+	var data models.SMSVerifyAPIResponse
+
+	err = json.NewDecoder(response.Body).Decode(&data)
+	if err != nil {
+		return http.StatusBadRequest, nil, err
+	}
+
+	if data.Respcode != constants.DefaultSuccessResponseCode {
+		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
+	}
+
+	return response.StatusCode, data, nil
 }
