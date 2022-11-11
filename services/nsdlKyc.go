@@ -184,6 +184,8 @@ func (p *ServiceConfig) VerifySelfie(selfie *models.Selfie) (int, interface{}, e
 
 	//need to fill rest
 	baseModel.SelfieImage = selfie.Image
+	baseModel.Referid = selfie.ReferId
+	baseModel.Jobid = selfie.JobId
 
 	response, err := p.NSDLClient.SendPostRequest(constants.VerifySelfieEndpoint, &baseModel)
 	if err != nil {
@@ -194,6 +196,9 @@ func (p *ServiceConfig) VerifySelfie(selfie *models.Selfie) (int, interface{}, e
 	err = json.NewDecoder(response.Body).Decode(&data)
 	if err != nil {
 		return http.StatusBadRequest, nil, err
+	}
+	if data.Facedtl.Facematch == "1" {
+		return http.StatusBadRequest, data, fmt.Errorf("face recoginition failed")
 	}
 
 	if data.Respcode != constants.DefaultSuccessResponseCode {
@@ -479,7 +484,7 @@ func (p *ServiceConfig) VCifAPI(user *models.UserId) (int, interface{}, error) {
 	baseModel.Createindvcifdtl.IndividualCustomerDTO.NationalIdentificationCode = userDetails.Gender
 
 	baseModel.Createindvcifdtl.IndividualCustomerDTO.IcType = "I"
-	baseModel.Createindvcifdtl.IndividualCustomerDTO.Category = "105"
+	baseModel.Createindvcifdtl.IndividualCustomerDTO.Category = "GI"
 
 	baseModel.Createindvcifdtl.IndividualCustomerDTO.Name.FirstName = userDetails.CustomerFName
 	baseModel.Createindvcifdtl.IndividualCustomerDTO.Name.FormattedFullName = userDetails.CustomerName

@@ -1,8 +1,10 @@
 package models
 
 type Selfie struct {
-	Image  string `json:"image"`
-	UserId string `json:"user_id"`
+	Image   string `json:"image"`
+	UserId  string `json:"user_id"`
+	ReferId string `json:"refer_id"`
+	JobId   string `json:"job_id"`
 }
 
 type VerifySelfieAPI struct {
