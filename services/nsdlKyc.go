@@ -299,6 +299,58 @@ func (p *ServiceConfig) ValidatePAN(details *models.DeviceDetails) (int, interfa
 	return response.StatusCode, data, nil
 }
 
+func (p *ServiceConfig) GetProductCardDetails(details *models.DeviceDetails) (int, interface{}, error) {
+
+	baseModel := models.GetCardDetailsAPI{}
+	baseModel.Channelid = p.NSDLClient.ChannelId
+	baseModel.Appdtls = *p.NSDLClient.AppDtls
+	baseModel.Devicedtls.Deviceid = details.DeviceId
+	baseModel.Deviceidentifier = models.DeviceIdentifier{
+		DeviceId:    details.DeviceId,
+		DeviceUnqId: details.DeviceUniqueId,
+		CustUnqId:   details.CustomerUniqueId,
+	}
+
+	response, err := p.NSDLClient.SendPostRequest(constants.GetCardProductsEndpoint, &baseModel)
+	if err != nil {
+		return http.StatusBadRequest, nil, err
+	}
+
+	var data models.GetCardDetailsAPIResponse
+	err = json.NewDecoder(response.Body).Decode(&data)
+	if err != nil {
+		return http.StatusBadRequest, nil, err
+	}
+
+	if data.Respcode != constants.DefaultSuccessResponseCode {
+		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
+	}
+
+	userCardInformation := models.UserCardCreateInformation{}
+
+	userCardInformation.AccountProdCode = data.AccntProdlist[0].AccntProdCode
+	userCardInformation.AccountProdName = data.AccntProdlist[0].AccntProdName
+
+	for _, cards := range data.CardProdlist {
+
+		if cards.Network == constants.DefaultCardNetwork {
+			userCardInformation.CardNetwork = cards.Network
+			userCardInformation.CardProdName = cards.CardProdName
+			userCardInformation.CardProdCode = cards.CardProdCode
+		}
+	}
+
+	userCardInformation.UserID = details.UserID
+
+	err = p.UserCardInformationRepo.CreateUserCardCreateInformation(&userCardInformation)
+	if err != nil {
+		return http.StatusBadRequest, nil, err
+	}
+
+	return response.StatusCode, userCardInformation, nil
+
+}
+
 func (p *ServiceConfig) AoFAPI(aof *models.AoFModel) (int, interface{}, error) {
 
 	//get device Id , uniqueId from db
@@ -316,6 +368,18 @@ func (p *ServiceConfig) AoFAPI(aof *models.AoFModel) (int, interface{}, error) {
 	if err != nil {
 		return http.StatusBadRequest, nil, err
 	}
+
+	_, cardInfo, err := p.GetProductCardDetails(details)
+	if err != nil {
+		return http.StatusBadRequest, nil, err
+	}
+
+	userKyc, err := p.UserKycRepo.ReadKycUserDoc(details.UserID)
+	if err != nil {
+		return http.StatusBadRequest, nil, err
+	}
+
+	userCardInfo := cardInfo.(models.UserCardCreateInformation)
 
 	dobString := strings.Split(additionalInformation.DOB, "-")
 
@@ -346,7 +410,7 @@ func (p *ServiceConfig) AoFAPI(aof *models.AoFModel) (int, interface{}, error) {
 	baseModel.Aofdtls.EmailId = userDetails.EmailId
 
 	//unknown
-	baseModel.Aofdtls.NationalIdentificationCode = userDetails.EmailId
+	baseModel.Aofdtls.NationalIdentificationCode = userKyc.PanNumber
 
 	baseModel.Aofdtls.ProfessionCode = additionalInformation.ProfessionalCode
 	baseModel.Aofdtls.Relation = additionalInformation.Relation
@@ -386,9 +450,9 @@ func (p *ServiceConfig) AoFAPI(aof *models.AoFModel) (int, interface{}, error) {
 	baseModel.Aofdtls.Name.SingleFullName = userDetails.CustomerFName + userDetails.CustomerMName + userDetails.CustomerLName
 
 	//save this information
-	baseModel.Carddtls.CardProdCode = aof.CardProdCode
-	baseModel.Carddtls.CardProdName = aof.CardProdName
-	baseModel.Carddtls.Network = aof.Network
+	baseModel.Carddtls.CardProdCode = userCardInfo.CardProdCode
+	baseModel.Carddtls.CardProdName = userCardInfo.CardProdName
+	baseModel.Carddtls.Network = userCardInfo.CardNetwork
 
 	response, err := p.NSDLClient.SendPostRequest(constants.AOFCreationEndpoint, &baseModel)
 	if err != nil {
@@ -439,6 +503,11 @@ func (p *ServiceConfig) VCifAPI(user *models.UserId) (int, interface{}, error) {
 		return http.StatusBadRequest, nil, err
 	}
 
+	userKyc, err := p.UserKycRepo.ReadKycUserDoc(details.UserID)
+	if err != nil {
+		return http.StatusBadRequest, nil, err
+	}
+
 	dobString := strings.Split(additionalInformation.DOB, "-")
 
 	baseModel := models.VCifAPI{}
@@ -481,7 +550,7 @@ func (p *ServiceConfig) VCifAPI(user *models.UserId) (int, interface{}, error) {
 	baseModel.Createindvcifdtl.IndividualCustomerDTO.Nationality = "IND"
 
 	//unknown field
-	baseModel.Createindvcifdtl.IndividualCustomerDTO.NationalIdentificationCode = userDetails.Gender
+	baseModel.Createindvcifdtl.IndividualCustomerDTO.NationalIdentificationCode = userKyc.PanNumber
 
 	baseModel.Createindvcifdtl.IndividualCustomerDTO.IcType = "I"
 	baseModel.Createindvcifdtl.IndividualCustomerDTO.Category = "GI"
@@ -560,6 +629,11 @@ func (p *ServiceConfig) AccountCreateProxy(user *models.UserId) (int, interface{
 		return http.StatusBadRequest, nil, err
 	}
 
+	userCardInfo, err := p.UserCardInformationRepo.ReadUserCardCreateInformation(details.UserID)
+	if err != nil {
+		return http.StatusBadRequest, nil, err
+	}
+
 	baseModel := models.AccountCreationAPI{}
 	baseModel.Channelid = p.NSDLClient.ChannelId
 	baseModel.Appdtls = *p.NSDLClient.AppDtls
@@ -592,7 +666,7 @@ func (p *ServiceConfig) AccountCreateProxy(user *models.UserId) (int, interface{
 	baseModel.Accountcreationdtl.MinorAcctStatusString = "N"
 
 	//unknown
-	baseModel.Accountcreationdtl.ProductCodeString = ""
+	baseModel.Accountcreationdtl.ProductCodeString = userCardInfo.AccountProdCode
 
 	response, err := p.NSDLClient.SendPostRequest(constants.AccountCreationEndpoint, &baseModel)
 	if err != nil {
@@ -612,6 +686,14 @@ func (p *ServiceConfig) AccountCreateProxy(user *models.UserId) (int, interface{
 	}
 
 	//save account number
+	account := &models.UserAccount{
+		AccountNumber: data.AccDtls.Accountno,
+		UserID:        details.UserID,
+	}
+	err = p.UserAccountRepo.CreateUserAccount(account)
+	if err != nil {
+		return http.StatusBadRequest, nil, err
+	}
 
 	return p.CreateCardProxy(user)
 
@@ -630,6 +712,11 @@ func (p *ServiceConfig) CreateCardProxy(user *models.UserId) (int, interface{}, 
 		return http.StatusBadRequest, nil, err
 	}
 
+	userCardInfo, err := p.UserCardInformationRepo.ReadUserCardCreateInformation(details.UserID)
+	if err != nil {
+		return http.StatusBadRequest, nil, err
+	}
+
 	baseModel := models.CardCreationAPI{}
 	baseModel.Channelid = p.NSDLClient.ChannelId
 	baseModel.Appdtls = *p.NSDLClient.AppDtls
@@ -640,12 +727,17 @@ func (p *ServiceConfig) CreateCardProxy(user *models.UserId) (int, interface{}, 
 		CustUnqId:   details.CustomerUniqueId,
 	}
 
+	account, err := p.UserAccountRepo.ReadUserAccount(details.UserID)
+	if err != nil {
+		return http.StatusBadRequest, nil, err
+	}
+
 	//fill from saved data
-	baseModel.Msg.AccountNo = ""
+	baseModel.Msg.AccountNo = account.AccountNumber
 
-	baseModel.Msg.NetworkType = ""
+	baseModel.Msg.NetworkType = userCardInfo.CardNetwork
 
-	baseModel.Msg.BinPrefix = ""
+	baseModel.Msg.BinPrefix = userCardInfo.BinPrefix
 
 	baseModel.Msg.AddressDtls.City = additionalInformation.City
 	baseModel.Msg.AddressDtls.Country = additionalInformation.Country

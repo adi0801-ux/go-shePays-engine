@@ -25,3 +25,50 @@ type CardCreationAPI struct {
 	Token  string `json:"token"`
 	Signcs string `json:"signcs"`
 }
+
+type GetCardDetailsAPI struct {
+	Channelid  string  `json:"channelid"`
+	Appdtls    AppDtls `json:"appdtls"`
+	Devicedtls struct {
+		Deviceid string `json:"deviceid"`
+	} `json:"devicedtls"`
+	Deviceidentifier DeviceIdentifier `json:"deviceidentifier"`
+	Token            string           `json:"token"`
+	Signcs           string           `json:"signcs"`
+}
+
+type GetCardDetailsAPIResponse struct {
+	AccntProdlist []struct {
+		AccntProdCode       string `json:"accntProdCode"`
+		AccntProdName       string `json:"accntProdName"`
+		SweepMappedProdCode string `json:"sweepMappedProdCode"`
+		SweepMappedProdName string `json:"sweepMappedProdName"`
+		AccntWelcomeHeader  string `json:"accntWelcomeHeader"`
+		AccntDetails        []struct {
+			Details     string `json:"details"`
+			Description string `json:"description"`
+		} `json:"accntDetails"`
+		MoreDetails []struct {
+			Details     string `json:"details"`
+			Description string `json:"description"`
+		} `json:"moreDetails"`
+		EligibleDebitCards []string `json:"eligibleDebitCards"`
+		CardFlag           []string `json:"CardFlag"`
+		TxnFlag            []string `json:"TxnFlag"`
+	} `json:"accntProdlist"`
+	Response     string `json:"response"`
+	CardProdlist []struct {
+		CardProdCode       string   `json:"cardProdCode"`
+		CardProdName       string   `json:"cardProdName"`
+		CardProdOffers     []string `json:"cardProdOffers"`
+		CardProdOffersLink string   `json:"cardProdOffersLink"`
+		Network            string   `json:"network"`
+		BinPrifix          string   `json:"binPrifix"`
+		NetworkiCon        string   `json:"networkiCon"`
+	} `json:"cardProdlist"`
+	Respcode            string `json:"respcode"`
+	KycAccntprodmaplist []struct {
+		KYCtypes      string   `json:"KYCtypes"`
+		AccntProdCode []string `json:"accntProdCode"`
+	} `json:"kycAccntprodmaplist"`
+}

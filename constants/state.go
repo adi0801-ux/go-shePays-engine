@@ -11,6 +11,7 @@ const (
 	DefaultSuccessResponseCode = "00"
 	DefaultErrorResponseCode   = "99"
 	DefaultPincodeValidated    = "PIN Code City List Available"
+	DefaultCardNetwork         = "RUPAY"
 
 	VersionCheckEndpoint              = "/PBcheckdeviceversionME"
 	RegisterDeviceEndpoint            = "/PBregisterdeviceME"
@@ -29,6 +30,7 @@ const (
 	VerifySelfieEndpoint              = "/PBfacematchME"
 	ValidateDOBEndpoint               = "/PBverifyvalidDOBME"
 	ValidatePANEndpoint               = "/PBvalidatePANME"
+	GetCardProductsEndpoint           = "/PBgetCardProductlistME"
 	AOFCreationEndpoint               = "/PBaofcreationME"
 	SMSGenrationEndpoint              = "/PBesigngenerateOTPME"
 	SMSVerifyEndpoint                 = "/PBesignverifyOTPME"
