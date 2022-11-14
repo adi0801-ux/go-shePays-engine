@@ -18,6 +18,7 @@ func (p *ServiceConfig) CheckPANExists(kycPAN *models.KYCPAN) (int, interface{},
 	//get device Id , uniqueId from db
 	details, err := p.DeviceDetailsRepo.ReadDeviceDetails(kycPAN.UserID)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -36,41 +37,49 @@ func (p *ServiceConfig) CheckPANExists(kycPAN *models.KYCPAN) (int, interface{},
 
 	response, err := p.NSDLClient.SendPostRequest(constants.CheckPanExistsEndpoint, &baseModel)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	var data models.CustomerDeviceApiResponse
 	err = json.NewDecoder(response.Body).Decode(&data)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 	if data.Respcode != constants.DefaultErrorResponseCode {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
 	}
 
 	response, err = p.NSDLClient.SendPostRequest(constants.PANVerifyEndpoint, &baseModel)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	var dataVerify models.PANVerifyAPIResponse
 	err = json.NewDecoder(response.Body).Decode(&dataVerify)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	if dataVerify.Respcode != constants.DefaultSuccessResponseCode {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, fmt.Errorf(dataVerify.Response)
 	}
 
 	//save pan number
 	err = p.UserKycRepo.CreateKycUserDoc(kycPAN)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 	//send consent api
 	StatusCode, responseBody, err := p.CustomerConsentAsking(details)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -83,6 +92,7 @@ func (p *ServiceConfig) VerifyAadhar(kycAadhar *models.KYCAadharVerify) (int, in
 	//get device Id , uniqueId from db
 	details, err := p.DeviceDetailsRepo.ReadDeviceDetails(kycAadhar.UserId)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 	payload := new(bytes.Buffer)
@@ -101,10 +111,12 @@ func (p *ServiceConfig) VerifyAadhar(kycAadhar *models.KYCAadharVerify) (int, in
 
 	filePart, errFile := writer.CreateFormFile("aadharFile", kycAadhar.AddharFile.Filename)
 	if errFile != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 	_, err = io.Copy(filePart, file)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -112,6 +124,7 @@ func (p *ServiceConfig) VerifyAadhar(kycAadhar *models.KYCAadharVerify) (int, in
 	_ = writer.WriteField("token", constants.DefaultTokenValue)
 	err = writer.Close()
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -122,6 +135,7 @@ func (p *ServiceConfig) VerifyAadhar(kycAadhar *models.KYCAadharVerify) (int, in
 	var data interface{}
 	err = json.NewDecoder(response.Body).Decode(&data)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -149,16 +163,19 @@ func (p *ServiceConfig) ValidateName(details *models.DeviceDetails) (int, interf
 
 	response, err := p.NSDLClient.SendPostRequest(constants.ValidateNameEndpoint, &baseModel)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	var data models.NameValidationAPIResponse
 	err = json.NewDecoder(response.Body).Decode(&data)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	if data.Respcode != constants.DefaultSuccessResponseCode {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
 	}
 
@@ -169,6 +186,7 @@ func (p *ServiceConfig) VerifySelfie(selfie *models.Selfie) (int, interface{}, e
 	//get device Id , uniqueId from db
 	details, err := p.DeviceDetailsRepo.ReadDeviceDetails(selfie.UserId)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -189,19 +207,23 @@ func (p *ServiceConfig) VerifySelfie(selfie *models.Selfie) (int, interface{}, e
 
 	response, err := p.NSDLClient.SendPostRequest(constants.VerifySelfieEndpoint, &baseModel)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	var data models.VerifySelfieAPIResponse
 	err = json.NewDecoder(response.Body).Decode(&data)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 	if data.Facedtl.Facematch == "1" {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, data, fmt.Errorf("face recoginition failed")
 	}
 
 	if data.Respcode != constants.DefaultSuccessResponseCode {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
 	}
 
@@ -212,11 +234,13 @@ func (p *ServiceConfig) ValidateDOB(dob *models.ValidateDOB) (int, interface{}, 
 	//get device Id , uniqueId from db
 	details, err := p.DeviceDetailsRepo.ReadDeviceDetails(dob.UserId)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	additionalDetails, err := p.CustomerDetailsRepo.ReadCustomerAdditionalDetails(dob.UserId)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -240,21 +264,25 @@ func (p *ServiceConfig) ValidateDOB(dob *models.ValidateDOB) (int, interface{}, 
 
 	response, err := p.NSDLClient.SendPostRequest(constants.ValidateDOBEndpoint, &baseModel)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	var data models.ValidateDOBAPIResponse
 	err = json.NewDecoder(response.Body).Decode(&data)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	if data.Respcode != constants.DefaultSuccessResponseCode {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
 	}
 
 	StatusCode, dataVerify, err := p.ValidatePAN(details)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -265,6 +293,7 @@ func (p *ServiceConfig) ValidatePAN(details *models.DeviceDetails) (int, interfa
 
 	kycDoc, err := p.UserKycRepo.ReadKycUserDoc(details.UserID)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -283,16 +312,19 @@ func (p *ServiceConfig) ValidatePAN(details *models.DeviceDetails) (int, interfa
 
 	response, err := p.NSDLClient.SendPostRequest(constants.ValidatePANEndpoint, &baseModel)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	var data models.ValidatePANAPIResponse
 	err = json.NewDecoder(response.Body).Decode(&data)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	if data.Respcode != constants.DefaultSuccessResponseCode {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
 	}
 
@@ -313,16 +345,19 @@ func (p *ServiceConfig) GetProductCardDetails(details *models.DeviceDetails) (in
 
 	response, err := p.NSDLClient.SendPostRequest(constants.GetCardProductsEndpoint, &baseModel)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	var data models.GetCardDetailsAPIResponse
 	err = json.NewDecoder(response.Body).Decode(&data)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	if data.Respcode != constants.DefaultSuccessResponseCode {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
 	}
 
@@ -337,6 +372,7 @@ func (p *ServiceConfig) GetProductCardDetails(details *models.DeviceDetails) (in
 			userCardInformation.CardNetwork = cards.Network
 			userCardInformation.CardProdName = cards.CardProdName
 			userCardInformation.CardProdCode = cards.CardProdCode
+			userCardInformation.BinPrefix = cards.BinPrifix
 		}
 	}
 
@@ -344,6 +380,7 @@ func (p *ServiceConfig) GetProductCardDetails(details *models.DeviceDetails) (in
 
 	err = p.UserCardInformationRepo.CreateUserCardCreateInformation(&userCardInformation)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -356,26 +393,31 @@ func (p *ServiceConfig) AoFAPI(aof *models.AoFModel) (int, interface{}, error) {
 	//get device Id , uniqueId from db
 	details, err := p.DeviceDetailsRepo.ReadDeviceDetails(aof.UserId)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	additionalInformation, err := p.CustomerDetailsRepo.ReadCustomerAdditionalDetails(details.UserID)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	userDetails, err := p.CustomerDetailsRepo.ReadCustomerDetails(details.UserID)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	_, cardInfo, err := p.GetProductCardDetails(details)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	userKyc, err := p.UserKycRepo.ReadKycUserDoc(details.UserID)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -468,6 +510,7 @@ func (p *ServiceConfig) AoFAPI(aof *models.AoFModel) (int, interface{}, error) {
 	}
 
 	if data.Respcode != constants.DefaultSuccessResponseCode {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
 	}
 
@@ -478,6 +521,7 @@ func (p *ServiceConfig) AoFAPI(aof *models.AoFModel) (int, interface{}, error) {
 	}
 	err = p.IntermValuesRepo.CreateOrUpdateUserIntermValues(&interm)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -490,21 +534,25 @@ func (p *ServiceConfig) VCifAPI(user *models.UserId) (int, interface{}, error) {
 	//get device Id , uniqueId from db
 	details, err := p.DeviceDetailsRepo.ReadDeviceDetails(user.UserId)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	additionalInformation, err := p.CustomerDetailsRepo.ReadCustomerAdditionalDetails(details.UserID)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	userDetails, err := p.CustomerDetailsRepo.ReadCustomerDetails(details.UserID)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	userKyc, err := p.UserKycRepo.ReadKycUserDoc(details.UserID)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -610,6 +658,7 @@ func (p *ServiceConfig) VCifAPI(user *models.UserId) (int, interface{}, error) {
 	}
 
 	if data.Respcode != constants.DefaultSuccessResponseCode {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
 	}
 
@@ -621,16 +670,19 @@ func (p *ServiceConfig) AccountCreateProxy(user *models.UserId) (int, interface{
 	//get device Id , uniqueId from db
 	details, err := p.DeviceDetailsRepo.ReadDeviceDetails(user.UserId)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	userDetails, err := p.CustomerDetailsRepo.ReadCustomerDetails(details.UserID)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	userCardInfo, err := p.UserCardInformationRepo.ReadUserCardCreateInformation(details.UserID)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -682,6 +734,7 @@ func (p *ServiceConfig) AccountCreateProxy(user *models.UserId) (int, interface{
 	}
 
 	if data.Respcode != constants.DefaultSuccessResponseCode {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
 	}
 
@@ -692,6 +745,7 @@ func (p *ServiceConfig) AccountCreateProxy(user *models.UserId) (int, interface{
 	}
 	err = p.UserAccountRepo.CreateUserAccount(account)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -704,16 +758,19 @@ func (p *ServiceConfig) CreateCardProxy(user *models.UserId) (int, interface{}, 
 	//get device Id , uniqueId from db
 	details, err := p.DeviceDetailsRepo.ReadDeviceDetails(user.UserId)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	additionalInformation, err := p.CustomerDetailsRepo.ReadCustomerAdditionalDetails(details.UserID)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	userCardInfo, err := p.UserCardInformationRepo.ReadUserCardCreateInformation(details.UserID)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -729,6 +786,7 @@ func (p *ServiceConfig) CreateCardProxy(user *models.UserId) (int, interface{}, 
 
 	account, err := p.UserAccountRepo.ReadUserAccount(details.UserID)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -763,6 +821,7 @@ func (p *ServiceConfig) CreateCardProxy(user *models.UserId) (int, interface{}, 
 	}
 
 	if data.Respcode != constants.DefaultSuccessResponseCode {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
 	}
 

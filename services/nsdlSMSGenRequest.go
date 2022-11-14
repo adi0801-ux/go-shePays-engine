@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"shepays/constants"
 	"shepays/models"
+	"shepays/utils"
 )
 
 func (p *ServiceConfig) SMSGenRequest(smsGenRequest *models.SMSGenReq) (int, interface{}, error) {
@@ -38,15 +39,18 @@ func (p *ServiceConfig) SMSGenRequest(smsGenRequest *models.SMSGenReq) (int, int
 
 	response, err := p.NSDLClient.SendPostRequest(constants.SMSGenRequestEndpoint, &baseModel)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	var data models.SMSGenReqAPIResponse
 	err = json.NewDecoder(response.Body).Decode(&data)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 	if data.Respcode != constants.DefaultSuccessResponseCode {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
 	}
 
@@ -78,15 +82,18 @@ func (p *ServiceConfig) VerifySmsActivation(details *models.DeviceDetails, smsGe
 
 	response, err := p.NSDLClient.SendPostRequest(constants.SMSStatusActionEndpoint, &baseModel)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	var data models.SMSActionStatusAPIResponse
 	err = json.NewDecoder(response.Body).Decode(&data)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 	if data.Respcode != constants.DefaultSuccessResponseCode {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
 	}
 
@@ -96,6 +103,7 @@ func (p *ServiceConfig) VerifySmsActivation(details *models.DeviceDetails, smsGe
 func (p *ServiceConfig) CheckMobileRecord(details *models.DeviceDetails, UserId string) (int, interface{}, error) {
 	customerDetails, err := p.CustomerDetailsRepo.ReadCustomerDetails(UserId)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -115,15 +123,18 @@ func (p *ServiceConfig) CheckMobileRecord(details *models.DeviceDetails, UserId 
 
 	response, err := p.NSDLClient.SendPostRequest(constants.CheckCustomerMobileNumber, &baseModel)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	var data models.CustomerRecordMobileNumberCheckResponse
 	err = json.NewDecoder(response.Body).Decode(&data)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 	if data.Respcode != constants.DefaultSuccessResponseCode {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
 	}
 

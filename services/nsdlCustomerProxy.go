@@ -6,12 +6,14 @@ import (
 	"net/http"
 	"shepays/constants"
 	"shepays/models"
+	"shepays/utils"
 )
 
 func (p *ServiceConfig) CustomerInformation(customerInfo *models.CustomerInformation) (int, interface{}, error) {
 	//get device Id , uniqueId from db
 	details, err := p.DeviceDetailsRepo.ReadDeviceDetails(customerInfo.UserId)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -38,15 +40,18 @@ func (p *ServiceConfig) CustomerInformation(customerInfo *models.CustomerInforma
 
 	response, err := p.NSDLClient.SendPostRequest(constants.CustomerDeviceRegisterEndpoint, &baseModel)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	var data models.CustomerDeviceApiResponse
 	err = json.NewDecoder(response.Body).Decode(&data)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 	if data.Respcode != constants.DefaultSuccessResponseCode {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
 	}
 
@@ -54,6 +59,7 @@ func (p *ServiceConfig) CustomerInformation(customerInfo *models.CustomerInforma
 	details.CustomerUniqueId = data.Deviceidentifier.Custunqid
 	err = p.DeviceDetailsRepo.UpdateDeviceDetails(details)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -74,6 +80,7 @@ func (p *ServiceConfig) CustomerInformation(customerInfo *models.CustomerInforma
 
 	err = p.CustomerDetailsRepo.CreateCustomerDetails(&customerDetails)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -86,6 +93,7 @@ func (p *ServiceConfig) CustomerAdditionalInformation(customerAdditionalInformat
 	//get device Id , uniqueId from db
 	details, err := p.DeviceDetailsRepo.ReadDeviceDetails(customerAdditionalInformation.UserId)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -104,6 +112,7 @@ func (p *ServiceConfig) CustomerAdditionalInformation(customerAdditionalInformat
 	//	save to db
 	err = p.CustomerDetailsRepo.CreateCustomerAdditionalDetails(customerAdditionalInformation)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -134,18 +143,22 @@ func (p *ServiceConfig) ValidatePincode(customerAdditionalInformation *models.Cu
 
 	response, err := p.NSDLClient.SendPostRequest(constants.ValidatePincodeEndpoint, &baseModel)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	var data models.ValidatePincodeResponse
 	err = json.NewDecoder(response.Body).Decode(&data)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 	if data.Respcode != constants.DefaultSuccessResponseCode {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
 	}
 	if data.RespMessage != constants.DefaultPincodeValidated {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, fmt.Errorf(data.RespMessage)
 	}
 
@@ -156,6 +169,7 @@ func (p *ServiceConfig) SetCustomerAddditionalInformation(customerAdditionalInfo
 
 	customerDetails, err := p.CustomerDetailsRepo.ReadCustomerDetails(customerAdditionalInformation.UserId)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -185,15 +199,18 @@ func (p *ServiceConfig) SetCustomerAddditionalInformation(customerAdditionalInfo
 
 	response, err := p.NSDLClient.SendPostRequest(constants.SetAdditionalInfomrmationEndpoint, &baseModel)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	var data models.CustomerAdditionalInformationAPIResponse
 	err = json.NewDecoder(response.Body).Decode(&data)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 	if data.Respcode != constants.DefaultSuccessResponseCode {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
 	}
 
@@ -219,14 +236,17 @@ func (p *ServiceConfig) CustomerConsentAsking(details *models.DeviceDetails) (in
 
 	response, err := p.NSDLClient.SendPostRequest(constants.ConsentAskingEndpoint, &baseModel)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 	var data models.ConsentAskingAPIResponse
 	err = json.NewDecoder(response.Body).Decode(&data)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 	if data.Respcode != constants.DefaultSuccessResponseCode {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
 	}
 
@@ -239,6 +259,7 @@ func (p *ServiceConfig) SetMPINProxy(setMPIN *models.SetMPIN) (int, interface{},
 	//get device Id , uniqueId from db
 	details, err := p.DeviceDetailsRepo.ReadDeviceDetails(setMPIN.UserId)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -261,15 +282,18 @@ func (p *ServiceConfig) SetMPINProxy(setMPIN *models.SetMPIN) (int, interface{},
 
 	response, err := p.NSDLClient.SendPostRequest(constants.SetMPINEndpoint, &baseModel)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 	var data interface{}
 	err = json.NewDecoder(response.Body).Decode(&data)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	if data.(map[string]interface{})["respcode"].(string) != constants.DefaultSuccessResponseCode {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, fmt.Errorf(data.(map[string]interface{})["response"].(string))
 	}
 
@@ -282,6 +306,7 @@ func (p *ServiceConfig) GetOTPProxy(user *models.UserId) (int, interface{}, erro
 	//get device Id , uniqueId from db
 	details, err := p.DeviceDetailsRepo.ReadDeviceDetails(user.UserId)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -309,6 +334,7 @@ func (p *ServiceConfig) GetOTPProxy(user *models.UserId) (int, interface{}, erro
 
 	response, err := p.NSDLClient.SendPostRequest(constants.SMSGenrationEndpoint, &baseModel)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -316,10 +342,12 @@ func (p *ServiceConfig) GetOTPProxy(user *models.UserId) (int, interface{}, erro
 
 	err = json.NewDecoder(response.Body).Decode(&data)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	if data.Respcode != constants.DefaultSuccessResponseCode {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
 	}
 
@@ -330,6 +358,7 @@ func (p *ServiceConfig) GetOTPProxy(user *models.UserId) (int, interface{}, erro
 
 	err = p.IntermValuesRepo.CreateUserIntermValues(values)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -342,6 +371,7 @@ func (p *ServiceConfig) VerifyOTPProxy(otp *models.OTPVerify) (int, interface{},
 	//get device Id , uniqueId from db
 	details, err := p.DeviceDetailsRepo.ReadDeviceDetails(otp.UserId)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -376,6 +406,7 @@ func (p *ServiceConfig) VerifyOTPProxy(otp *models.OTPVerify) (int, interface{},
 
 	response, err := p.NSDLClient.SendPostRequest(constants.SMSVerifyEndpoint, &baseModel)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -383,10 +414,12 @@ func (p *ServiceConfig) VerifyOTPProxy(otp *models.OTPVerify) (int, interface{},
 
 	err = json.NewDecoder(response.Body).Decode(&data)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	if data.Respcode != constants.DefaultSuccessResponseCode {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
 	}
 

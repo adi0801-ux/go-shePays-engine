@@ -19,12 +19,14 @@ func (p *ServiceConfig) CheckDeviceVersion(deviceIdentifier *models.DeviceIdenti
 
 	response, err := p.NSDLClient.SendPostRequest(constants.VersionCheckEndpoint, &baseModel)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	var data map[string]interface{}
 	err = json.NewDecoder(response.Body).Decode(&data)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
@@ -62,15 +64,18 @@ func (p *ServiceConfig) RegisterDevice(registerDevice *models.RegisterDevice) (i
 
 	response, err := p.NSDLClient.SendPostRequest(constants.RegisterDeviceEndpoint, &baseModel)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 
 	var data models.RegisterDeviceResponse
 	err = json.NewDecoder(response.Body).Decode(&data)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 	if data.Respcode != constants.DefaultSuccessResponseCode {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
 	}
 
@@ -84,6 +89,7 @@ func (p *ServiceConfig) RegisterDevice(registerDevice *models.RegisterDevice) (i
 	}
 	err = p.DeviceDetailsRepo.CreateDeviceDetails(deviceDetail)
 	if err != nil {
+		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
 

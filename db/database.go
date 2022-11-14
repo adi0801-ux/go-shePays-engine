@@ -26,7 +26,9 @@ func (d *Database) RunMigrations() (err error) {
 		&models.CustomerDetails{},
 		&models.CustomerAdditionalInformation{},
 		&models.KYCPAN{},
-		&models.UserIntermValues{})
+		&models.UserIntermValues{},
+		&models.UserCardCreateInformation{},
+		&models.UserAccount{})
 	return err
 }
 
