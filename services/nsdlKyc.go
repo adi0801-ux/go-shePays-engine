@@ -10,7 +10,9 @@ import (
 	"shepays/constants"
 	"shepays/models"
 	"shepays/utils"
+	"strconv"
 	"strings"
+	"time"
 )
 
 func (p *ServiceConfig) CheckPANExists(kycPAN *models.KYCPAN) (int, interface{}, error) {
@@ -76,6 +78,19 @@ func (p *ServiceConfig) CheckPANExists(kycPAN *models.KYCPAN) (int, interface{},
 		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
+	//call customer docsme api
+	StatusCodeCustomerDocsPOI, responseBodyCustomerDocsPOI, errCustomerDocsPOI := p.CustomerDocs(details, &dataVerify, "POI")
+	if errCustomerDocsPOI != nil {
+		utils.Log.Error(errCustomerDocsPOI)
+		return StatusCodeCustomerDocsPOI, responseBodyCustomerDocsPOI, errCustomerDocsPOI
+	}
+
+	StatusCodeCustomerDocsTAX, responseBodyCustomerDocsTAX, errCustomerDocsTAX := p.CustomerDocs(details, &dataVerify, "TAX")
+	if errCustomerDocsTAX != nil {
+		utils.Log.Error(errCustomerDocsTAX)
+		return StatusCodeCustomerDocsTAX, responseBodyCustomerDocsTAX, errCustomerDocsTAX
+	}
+
 	//send consent api
 	StatusCode, responseBody, err := p.CustomerConsentAsking(details)
 	if err != nil {
@@ -85,6 +100,54 @@ func (p *ServiceConfig) CheckPANExists(kycPAN *models.KYCPAN) (int, interface{},
 
 	return StatusCode, responseBody, err
 
+}
+
+func (p *ServiceConfig) CustomerDocs(details *models.DeviceDetails, panResponse *models.PANVerifyAPIResponse, docProof string) (int, interface{}, error) {
+
+	baseModel := models.CustomerDocsAPI{}
+	baseModel.Channelid = p.NSDLClient.ChannelId
+	baseModel.Appdtls = *p.NSDLClient.AppDtls
+	baseModel.Devicedtls.Deviceid = details.DeviceId
+	baseModel.Deviceidentifier = models.DeviceIdentifier{
+		DeviceId:    details.DeviceId,
+		DeviceUnqId: details.DeviceUniqueId,
+		CustUnqId:   details.CustomerUniqueId,
+	}
+	//current time
+	year, month, date := time.Now().Date()
+
+	//	for the first time
+	baseModel.Docdtls.DocType = "PAN"
+	baseModel.Docdtls.DocProofType = docProof
+	baseModel.Docdtls.DocId = panResponse.Pandetails.DocId
+	baseModel.Docdtls.DocVerDt = strconv.Itoa(year) + "-" + strconv.Itoa(int(month)) + "-" + strconv.Itoa(date)
+	baseModel.Docdtls.DocVerChanid = p.NSDLClient.ChannelId
+	baseModel.Docdtls.DocStatus = "VERIFIED"
+	baseModel.Docdtls.DocIssDt = panResponse.Pandetails.Issuedate
+	baseModel.Docdtls.DocXml = panResponse.Pandetails.DocXml
+	baseModel.Docdtls.Name = panResponse.Pandetails.Fullname
+	baseModel.Docdtls.FName = panResponse.Pandetails.Fname
+	baseModel.Docdtls.MName = panResponse.Pandetails.Mname
+	baseModel.Docdtls.LName = panResponse.Pandetails.Lname
+
+	response, err := p.NSDLClient.SendPostRequest(constants.CustomerDocsEndpoint, &baseModel)
+	if err != nil {
+		utils.Log.Error(err)
+		return http.StatusBadRequest, nil, err
+	}
+
+	var data interface{}
+	err = json.NewDecoder(response.Body).Decode(&data)
+	if err != nil {
+		utils.Log.Error(err)
+		return http.StatusBadRequest, nil, err
+	}
+
+	if data.(map[string]interface{})["respcode"].(string) != constants.DefaultSuccessResponseCode {
+		utils.Log.Error(err)
+		return http.StatusBadRequest, nil, fmt.Errorf(data.(map[string]interface{})["response"].(string))
+	}
+	return response.StatusCode, data, nil
 }
 
 func (p *ServiceConfig) VerifyAadhar(kycAadhar *models.KYCAadharVerify) (int, interface{}, error) {
@@ -224,7 +287,7 @@ func (p *ServiceConfig) VerifySelfie(selfie *models.Selfie) (int, interface{}, e
 
 	if data.Respcode != constants.DefaultSuccessResponseCode {
 		utils.Log.Error(err)
-		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
+		return http.StatusBadRequest, data, fmt.Errorf(data.Response)
 	}
 
 	return response.StatusCode, data, nil
@@ -463,7 +526,7 @@ func (p *ServiceConfig) AoFAPI(aof *models.AoFModel) (int, interface{}, error) {
 	baseModel.Aofdtls.Address.Country = additionalInformation.Country
 	baseModel.Aofdtls.Address.Line1 = additionalInformation.AddressLine1
 	baseModel.Aofdtls.Address.Line2 = additionalInformation.AddressLine2
-	baseModel.Aofdtls.Address.Line3 = "__ None __"
+	baseModel.Aofdtls.Address.Line3 = " None "
 	baseModel.Aofdtls.Address.State = additionalInformation.State
 	baseModel.Aofdtls.Address.Pincode = additionalInformation.PinCode
 
@@ -621,18 +684,18 @@ func (p *ServiceConfig) VCifAPI(user *models.UserId) (int, interface{}, error) {
 	baseModel.Createindvcifdtl.IndividualCustomerDTO.CifType = "C"
 
 	baseModel.Createindvcifdtl.IndividualCustomerDTO.Address.City = additionalInformation.City
-	baseModel.Createindvcifdtl.IndividualCustomerDTO.Address.Country = additionalInformation.Country
+	baseModel.Createindvcifdtl.IndividualCustomerDTO.Address.Country = "IN"
 	baseModel.Createindvcifdtl.IndividualCustomerDTO.Address.Line1 = additionalInformation.AddressLine1
 	baseModel.Createindvcifdtl.IndividualCustomerDTO.Address.Line2 = additionalInformation.AddressLine2
-	baseModel.Createindvcifdtl.IndividualCustomerDTO.Address.Line3 = "__ None __"
+	baseModel.Createindvcifdtl.IndividualCustomerDTO.Address.Line3 = " None "
 	baseModel.Createindvcifdtl.IndividualCustomerDTO.Address.State = additionalInformation.State
 	baseModel.Createindvcifdtl.IndividualCustomerDTO.Address.Pincode = additionalInformation.PinCode
 
 	baseModel.Createindvcifdtl.IndividualCustomerDTO.PermanantAddress.City = additionalInformation.City
-	baseModel.Createindvcifdtl.IndividualCustomerDTO.PermanantAddress.Country = additionalInformation.Country
+	baseModel.Createindvcifdtl.IndividualCustomerDTO.PermanantAddress.Country = "IN"
 	baseModel.Createindvcifdtl.IndividualCustomerDTO.PermanantAddress.Line1 = additionalInformation.AddressLine1
 	baseModel.Createindvcifdtl.IndividualCustomerDTO.PermanantAddress.Line2 = additionalInformation.AddressLine2
-	baseModel.Createindvcifdtl.IndividualCustomerDTO.PermanantAddress.Line3 = "__ None __"
+	baseModel.Createindvcifdtl.IndividualCustomerDTO.PermanantAddress.Line3 = " None "
 	baseModel.Createindvcifdtl.IndividualCustomerDTO.PermanantAddress.State = additionalInformation.State
 	baseModel.Createindvcifdtl.IndividualCustomerDTO.PermanantAddress.Pincode = additionalInformation.PinCode
 
@@ -662,6 +725,19 @@ func (p *ServiceConfig) VCifAPI(user *models.UserId) (int, interface{}, error) {
 		return http.StatusBadRequest, nil, fmt.Errorf(data.Response)
 	}
 
+	//save CIF
+	intermValues, err := p.IntermValuesRepo.ReadUserIntermValues(details.UserID)
+	if err != nil {
+		utils.Log.Error(err)
+		return http.StatusBadRequest, nil, err
+	}
+	intermValues.CIF = strconv.Itoa(data.CifDtls.CIF)
+	err = p.IntermValuesRepo.UpdateUserIntermValues(intermValues)
+	if err != nil {
+		utils.Log.Error(err)
+		return http.StatusBadRequest, nil, err
+	}
+
 	return response.StatusCode, data, nil
 }
 
@@ -685,6 +761,11 @@ func (p *ServiceConfig) AccountCreateProxy(user *models.UserId) (int, interface{
 		utils.Log.Error(err)
 		return http.StatusBadRequest, nil, err
 	}
+	intermValues, err := p.IntermValuesRepo.ReadUserIntermValues(details.UserID)
+	if err != nil {
+		utils.Log.Error(err)
+		return http.StatusBadRequest, nil, err
+	}
 
 	baseModel := models.AccountCreationAPI{}
 	baseModel.Channelid = p.NSDLClient.ChannelId
@@ -701,7 +782,7 @@ func (p *ServiceConfig) AccountCreateProxy(user *models.UserId) (int, interface{
 	baseModel.Custcreddtls.Role = "CUST"
 
 	//unknown
-	baseModel.Custcreddtls.Cif = ""
+	baseModel.Custcreddtls.Cif = intermValues.CIF
 
 	baseModel.Accountcreationdtl.AccountNoString = ""
 	baseModel.Accountcreationdtl.AccountTitle = userDetails.CustomerFName + userDetails.CustomerMName + userDetails.CustomerLName
@@ -801,7 +882,7 @@ func (p *ServiceConfig) CreateCardProxy(user *models.UserId) (int, interface{}, 
 	baseModel.Msg.AddressDtls.Country = additionalInformation.Country
 	baseModel.Msg.AddressDtls.Address1 = additionalInformation.AddressLine1
 	baseModel.Msg.AddressDtls.Address2 = additionalInformation.AddressLine2
-	baseModel.Msg.AddressDtls.Address3 = "__ None __"
+	baseModel.Msg.AddressDtls.Address3 = " None "
 	baseModel.Msg.AddressDtls.State = additionalInformation.State
 	baseModel.Msg.AddressDtls.Pincode = additionalInformation.PinCode
 

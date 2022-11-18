@@ -1,0 +1,58 @@
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-18 13:00:05"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-18 13:00:05"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-18 13:00:05"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-18 13:00:05"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-18 13:00:05"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-18 13:00:05"}
+{"caller":"/services/nsdlCustomerProxy.go:16","level":"error","msg":"user record not found","time":"2022-11-18 13:00:56"}
+{"caller":"/repositories/nsdlClient.go:127","level":"error","msg":"Post \"https://jiffyuat.nsdlbank.co.in/v1/jarvisfinserv/PBcreCustdeviceprofME\": context deadline exceeded (Client.Timeout exceeded while awaiting headers)","time":"2022-11-18 13:01:45"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-18 13:02:34"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-18 13:02:34"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-18 13:02:34"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-18 13:02:34"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-18 13:02:34"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-18 13:02:34"}
+{"caller":"/services/nsdlKyc.go:178","level":"error","msg":"\u003cnil\u003e","time":"2022-11-18 13:03:23"}
+{"caller":"/services/nsdlKyc.go:661","level":"error","msg":"\u003cnil\u003e","time":"2022-11-18 14:50:15"}
+{"caller":"/services/nsdlKyc.go:737","level":"error","msg":"\u003cnil\u003e","time":"2022-11-18 14:50:37"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-18 15:34:09"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-18 15:34:09"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-18 15:34:09"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-18 15:34:09"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-18 15:34:10"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-18 15:34:10"}
+{"caller":"/services/nsdlKyc.go:71","level":"error","msg":"\u003cnil\u003e","time":"2022-11-18 15:34:14"}
+{"caller":"/services/nsdlKyc.go:147","level":"error","msg":"\u003cnil\u003e","time":"2022-11-18 15:35:28"}
+{"caller":"/services/nsdlKyc.go:84","level":"error","msg":"Internal Server Error.","time":"2022-11-18 15:35:28"}
+{"caller":"/services/nsdlKyc.go:147","level":"error","msg":"\u003cnil\u003e","time":"2022-11-18 16:07:56"}
+{"caller":"/services/nsdlKyc.go:84","level":"error","msg":"Internal Server Error.","time":"2022-11-18 16:07:56"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-18 16:33:43"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-18 16:33:43"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-18 16:33:43"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-18 16:33:43"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-18 16:33:44"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-18 16:33:44"}
+{"caller":"/services/nsdlKyc.go:289","level":"error","msg":"\u003cnil\u003e","time":"2022-11-18 16:34:07"}
+{"caller":"/services/nsdlKyc.go:724","level":"error","msg":"\u003cnil\u003e","time":"2022-11-18 16:34:33"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-18 16:36:04"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-18 16:36:04"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-18 16:36:04"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-18 16:36:04"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-18 16:36:04"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-18 16:36:04"}
+{"caller":"/services/nsdlKyc.go:724","level":"error","msg":"\u003cnil\u003e","time":"2022-11-18 16:36:06"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-18 16:37:34"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-18 16:37:34"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-18 16:37:34"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-18 16:37:34"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-18 16:37:35"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-18 16:37:35"}
+{"caller":"/services/nsdlKyc.go:800","level":"error","msg":"\u003cnil\u003e","time":"2022-11-18 16:37:47"}
+{"caller":"/main.go:18","level":"info","msg":"logger initialized","time":"2022-11-18 17:26:07"}
+{"caller":"/main.go:22","level":"info","msg":"config loading...","time":"2022-11-18 17:26:07"}
+{"caller":"/main.go:29","level":"info","msg":"config loaded","time":"2022-11-18 17:26:07"}
+{"caller":"/main.go:31","level":"info","msg":"database connecting....","time":"2022-11-18 17:26:07"}
+{"caller":"/main.go:46","level":"info","msg":"database connected","time":"2022-11-18 17:26:08"}
+{"caller":"/main.go:67","level":"info","msg":"api server initializing","time":"2022-11-18 17:26:08"}
+{"caller":"/services/nsdlKyc.go:724","level":"error","msg":"\u003cnil\u003e","time":"2022-11-18 17:26:13"}
+{"caller":"/services/nsdlKyc.go:818","level":"error","msg":"\u003cnil\u003e","time":"2022-11-18 17:27:34"}

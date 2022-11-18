@@ -37,4 +37,5 @@ const (
 	VCIFCreationEndpoint              = "/PBcreretailindvcifME"
 	AccountCreationEndpoint           = "/PBaccountcreationME"
 	CardCreationEndpoint              = "/PBgenerateCardME"
+	CustomerDocsEndpoint              = "/PBcustomerdocsME"
 )

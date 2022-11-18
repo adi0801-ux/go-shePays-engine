@@ -63,7 +63,8 @@ func (s *HTTPServer) AadhaarVerifyController(c *fiber.Ctx) error {
 	//get file
 	file, err := c.FormFile("aadhar_file")
 	if err != nil {
-		return err
+		SendFullErrorResponse(c, http.StatusBadRequest, fmt.Errorf(constants.RequestError), err)
+		return nil
 	}
 
 	kycAadhar.AddharFile = file

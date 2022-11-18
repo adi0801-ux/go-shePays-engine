@@ -89,4 +89,8 @@ type VCifAPI struct {
 type VCifAPIResponse struct {
 	Response string `json:"response"`
 	Respcode string `json:"respcode"`
+	CifDtls  struct {
+		ExtCustomerID int `json:"extCustomerID"`
+		CIF           int `json:"CIF"`
+	} `json:"cif_dtls"`
 }
