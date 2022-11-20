@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  shepays-nsdl-go:
+    build: ./
+    ports:
+      - "8088:8088"
+    volumes:
+      - ./logs/shepays-nsdl-go:/app/logs
+    restart: always
+
+networks:
+  default:
+    external:
+      name: dockerhome
