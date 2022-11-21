@@ -46,6 +46,7 @@ type CustomerAdditionalInformation struct {
 	Relation          string    `gorm:"column:relation;not null" json:"relation"`
 	CustomerEducation string    `gorm:"column:customer_education;not null" json:"customer_education"`
 	FathersName       string    `gorm:"column:father_name;not null" json:"father_name"`
+	MothersName       string    `gorm:"column:mother_name;not null" json:"mother_name"`
 	UserId            string    `gorm:"column:user_id;not null" json:"user_id"`
 	ID                int32     `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
 	CreatedAt         time.Time `gorm:"column:created_at;not null;default:now()" json:"created_at"`

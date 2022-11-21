@@ -506,7 +506,7 @@ func (p *ServiceConfig) AoFAPI(aof *models.AoFModel) (int, interface{}, error) {
 	baseModel.Aofdtls.FirstName = userDetails.CustomerFName
 	baseModel.Aofdtls.MidName = userDetails.CustomerMName
 	baseModel.Aofdtls.LastName = userDetails.CustomerLName
-	baseModel.Aofdtls.MotherMaidenName = ""
+	baseModel.Aofdtls.MotherMaidenName = additionalInformation.MothersName
 	baseModel.Aofdtls.FatherName = additionalInformation.FathersName
 	baseModel.Aofdtls.MaritalStatus = additionalInformation.MartialStatus
 	baseModel.Aofdtls.CustomerMobilePhone = userDetails.MobileCountryCode + userDetails.Msisdn
