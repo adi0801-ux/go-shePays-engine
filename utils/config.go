@@ -14,6 +14,7 @@ type Config struct {
 	AppId         string `mapstructure:"APP_ID"`
 	ApplVersion   string `mapstructure:"APP_VERSION"`
 	AppRegFlg     string `mapstructure:"APP_REG_FLAG"`
+	AuthApiKey    string `mapstructure:"AUTH_API_KEY"`
 }
 
 func LoadConfig(path string) (config *Config, err error) {

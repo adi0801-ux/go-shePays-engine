@@ -22,6 +22,8 @@ func (s *HTTPServer) RegisterRoutes(router *fiber.App) {
 
 	api := router.Group("/api")
 
+	api.Use(s.AuthorizeMiddleware())
+
 	device := api.Group("/device")
 	{
 		device.Post("/version/check", s.checkDeviceController)
