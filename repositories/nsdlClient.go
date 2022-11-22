@@ -20,7 +20,7 @@ type NSDLClient struct {
 }
 
 func CreateHttpClient() *http.Client {
-	client := &http.Client{Timeout: 20 * time.Second}
+	client := &http.Client{Timeout: 50 * time.Second}
 	return client
 }
 
