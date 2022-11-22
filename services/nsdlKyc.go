@@ -872,10 +872,9 @@ func (p *ServiceConfig) AccountCreateProxy(user *models.UserId) (int, interface{
 		return http.StatusBadRequest, nil, err
 	}
 
-	responseCode, dataCard, err := p.CreateCardProxy(user)
+	_, _, err = p.CreateCardProxy(user)
 	if err != nil {
 		utils.Log.Error(err)
-		return responseCode, dataCard, err
 	}
 
 	return response.StatusCode, account, nil
