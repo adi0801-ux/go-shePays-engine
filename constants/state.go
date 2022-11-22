@@ -38,4 +38,5 @@ const (
 	AccountCreationEndpoint           = "/PBaccountcreationME"
 	CardCreationEndpoint              = "/PBgenerateCardME"
 	CustomerDocsEndpoint              = "/PBcustomerdocsME"
+	ProfileNameUpdateEndpoint         = "/PBupdateProfileNameME"
 )

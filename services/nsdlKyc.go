@@ -91,6 +91,12 @@ func (p *ServiceConfig) CheckPANExists(kycPAN *models.KYCPAN) (int, interface{},
 		return StatusCodeCustomerDocsTAX, responseBodyCustomerDocsTAX, errCustomerDocsTAX
 	}
 
+	//call update name api
+	_, _, err = p.UpdateNameAPI(details)
+	if err != nil {
+		return http.StatusBadRequest, nil, err
+	}
+
 	//send consent api
 	StatusCode, responseBody, err := p.CustomerConsentAsking(details)
 	if err != nil {
@@ -99,6 +105,45 @@ func (p *ServiceConfig) CheckPANExists(kycPAN *models.KYCPAN) (int, interface{},
 	}
 
 	return StatusCode, responseBody, err
+
+}
+
+func (p *ServiceConfig) UpdateNameAPI(details *models.DeviceDetails) (int, interface{}, error) {
+
+	userDetails, err := p.CustomerDetailsRepo.ReadCustomerDetails(details.UserID)
+	if err != nil {
+		utils.Log.Error(err)
+		return http.StatusBadRequest, nil, err
+	}
+
+	baseModel := models.ProfileNameUpdateAPI{}
+	baseModel.Channelid = p.NSDLClient.ChannelId
+	baseModel.Appdtls = *p.NSDLClient.AppDtls
+	baseModel.Devicedtls.Deviceid = details.DeviceId
+	baseModel.Deviceidentifier = models.DeviceIdentifier{
+		DeviceId:    details.DeviceId,
+		DeviceUnqId: details.DeviceUniqueId,
+		CustUnqId:   details.CustomerUniqueId,
+	}
+
+	baseModel.FirstName = userDetails.CustomerFName
+	baseModel.MiddleName = userDetails.CustomerMName
+	baseModel.LastName = userDetails.CustomerLName
+
+	response, err := p.NSDLClient.SendPostRequest(constants.ProfileNameUpdateEndpoint, &baseModel)
+	if err != nil {
+		utils.Log.Error(err)
+		return http.StatusBadRequest, nil, err
+	}
+
+	var data interface{}
+	err = json.NewDecoder(response.Body).Decode(&data)
+	if err != nil {
+		utils.Log.Error(err)
+		return http.StatusBadRequest, nil, err
+	}
+
+	return response.StatusCode, data, err
 
 }
 
@@ -781,7 +826,6 @@ func (p *ServiceConfig) AccountCreateProxy(user *models.UserId) (int, interface{
 	baseModel.Custcreddtls.Usertype = "CUSTOMER"
 	baseModel.Custcreddtls.Role = "CUST"
 
-	//unknown
 	baseModel.Custcreddtls.Cif = intermValues.CIF
 
 	baseModel.Accountcreationdtl.AccountNoString = ""
@@ -789,8 +833,7 @@ func (p *ServiceConfig) AccountCreateProxy(user *models.UserId) (int, interface{
 	baseModel.Accountcreationdtl.AcctCurrencyString = "1"
 	baseModel.Accountcreationdtl.BranchCode = "8888"
 
-	//unknown
-	baseModel.Accountcreationdtl.CustomerIDString = "N"
+	baseModel.Accountcreationdtl.CustomerIDString = intermValues.CIF
 
 	baseModel.Accountcreationdtl.FlgJointHolderString = "N"
 	baseModel.Accountcreationdtl.FlgRestrictAcctString = "N"
@@ -798,7 +841,6 @@ func (p *ServiceConfig) AccountCreateProxy(user *models.UserId) (int, interface{
 	baseModel.Accountcreationdtl.FlgTransactionType = "A"
 	baseModel.Accountcreationdtl.MinorAcctStatusString = "N"
 
-	//unknown
 	baseModel.Accountcreationdtl.ProductCodeString = userCardInfo.AccountProdCode
 
 	response, err := p.NSDLClient.SendPostRequest(constants.AccountCreationEndpoint, &baseModel)
